@@ -23,10 +23,14 @@ function onDrop(acceptFiles, rejectReasons) {
   console.log(acceptFiles);
   console.log(rejectReasons);
   state.files = acceptFiles;
+  // two solutions
+  // 1. immediately upload to server or make a upload button.
 }
 
 function handleClickDeleteFile(index) {
   state.files.splice(index, 1);
+
+  // Delete file from 
 }
 
 </script>
@@ -37,18 +41,12 @@ function handleClickDeleteFile(index) {
   <div v-if="state.files.length > 0" class="files">
     <div class="file-item" v-for="(file, index) in state.files" :key="index">
       <span>{{ file.name }}</span>
-      <span class="delete-file" @click="handleClickDeleteFile(index)"
-        >Delete</span
-      >
+      <span class="delete-file" @click="handleClickDeleteFile(index)">Delete</span>
     </div>
   </div>
   <div v-else class="dropzone" v-bind="getRootProps()">
-    <div
-      class="border"
-      :class="{
-        isDragActive,
-      }"
-    >
+    <div class="border" :class="{isDragActive, }">
+      <div class="icon"><v-icon name="bi-cloud-upload" fill="#ccc" scale="5" /></div>
       <input v-bind="getInputProps()" />
       <p v-if="isDragActive">Drop the files here ...</p>
       <p v-else>Drag and drop files here, or Click to select files</p>
@@ -61,8 +59,7 @@ function handleClickDeleteFile(index) {
 <style scoped>
 dropzone,
 .files {
-  width: 100%;
-  max-width: 300px;
+  width: 500px;
   margin: 0 auto;
   padding: 10px;
   border-radius: 8px;
@@ -75,16 +72,24 @@ dropzone,
 .border {
   border: 2px dashed #ccc;
   border-radius: 8px;
-  display: flex;
+  /*display: flex;*/
   align-items: center;
   justify-content: center;
   padding: 20px;
   transition: all 0.3s ease;
   background: #fff;
+  width: 500px;
+  text-align: center;
 
   &.isDragActive {
     border: 2px dashed #ffb300;
     background: rgb(255 167 18 / 20%);
+
+    .icon {
+      svg {
+        fill: #ffb300;
+      }
+    }
   }
 }
 
