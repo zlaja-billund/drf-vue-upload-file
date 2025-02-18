@@ -11,13 +11,10 @@ function request(method) {
     return (url, body) => {
         const requestOptions = {
             method,
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
         };
         
         if (body) {
-            //requestOptions.headers['Content-Type'] = 'multipart/form-data';
+            requestOptions.headers['Content-Type'] = 'multipart/form-data';
             requestOptions.body = body;
         }
         
