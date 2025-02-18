@@ -13,5 +13,10 @@ class FileUploadSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         files = validated_data['files']
-        file_objs = [FileUpload.objects.create(file=file) for file in files]
+
+        file_objs = []
+        
+        for file in files:
+            file_objs.append(FileUpload.objects.create(file=file))
+        
         return file_objs
