@@ -10,6 +10,9 @@ export const useFileStore = defineStore("file", {
     actions: {
         async postFiles(formData) {
             return await fetchWrapper.post(baseUrl + 'files/upload', formData);
+        },
+        deleteFileFromList(index) {
+            this.files.splice(index, 1);
         }
     }
 });

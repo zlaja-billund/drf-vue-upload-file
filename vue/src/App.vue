@@ -1,36 +1,39 @@
 <script setup>
 
-import { reactive, watch } from 'vue';
 import { useDropzone } from 'vue3-dropzone';
+import { useFileStore } from './stores';
 
-const state = reactive({
-  files: [],
-});
+const fileStore = useFileStore();
 
 const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
   onDrop,
 });
 
-watch(state, () => {
-  console.log('state', state);
-});
-
-watch(isDragActive, () => {
-  console.log('isDragActive', isDragActive.value, rest);
-});
 
 function onDrop(acceptFiles, rejectReasons) {
   console.log(acceptFiles);
   console.log(rejectReasons);
-  state.files = acceptFiles;
-  // two solutions
-  // 1. immediately upload to server or make a upload button.
+  fileStore.files = acceptFiles;
+
+  const formData = new FormData();
+
+  for(var x = 0; x < acceptFiles.length; x++) {
+    formData.append("files", acceptFiles[x]);
+  }
+
+  fileStore.postFiles(formData).catch((err) => {
+      console.error(err);
+    });
 }
 
 function handleClickDeleteFile(index) {
-  state.files.splice(index, 1);
+  fileStore.deleteFileFromList(index);
 
-  // Delete file from 
+  // Call api request to delete file from storage
+}
+
+const showFilesList = () => {
+  console.log("files in list", fileStore.files);
 }
 
 </script>
@@ -38,8 +41,8 @@ function handleClickDeleteFile(index) {
 <template>
 
 <div>
-  <div v-if="state.files.length > 0" class="files">
-    <div class="file-item" v-for="(file, index) in state.files" :key="index">
+  <div v-if="fileStore.files.length > 0" class="files">
+    <div class="file-item" v-for="(file, index) in fileStore.files" :key="index">
       <span>{{ file.name }}</span>
       <span class="delete-file" @click="handleClickDeleteFile(index)">Delete</span>
     </div>
