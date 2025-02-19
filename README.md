@@ -1,21 +1,20 @@
 # Django Rest Framework - Vue - Upload files 
 
 ## Description
-A brief description of what your project does and who it's for.
+This project demonstrates a simple file upload using Django REST Framework API and Vue 3.
 
 ## Features
-- Feature 1
-- Feature 2
-- Feature 3
+- Upload file
+- Delete file + auto cleanup
 
 ## Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/your-repo-name.git
+    git clone https://github.com/zlaja-billund/drf-vue-upload-file.git
     ```
 2. Navigate to the project directory:
     ```bash
-    cd your-repo-name
+    cd drf-vue-upload-file
     ```
 3. Install dependencies:
     ```bash
@@ -43,8 +42,3 @@ Provide instructions and examples for using your project.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgements
-- Inspiration
-- References
-- etc.
