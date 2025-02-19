@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'corsheaders',
+    'django_cleanup.apps.CleanupConfig',
     # local
     'files',
 ]
