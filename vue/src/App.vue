@@ -11,29 +11,25 @@ const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
 
 
 function onDrop(acceptFiles, rejectReasons) {
-  console.log(acceptFiles);
-  console.log(rejectReasons);
-  fileStore.files = acceptFiles;
-
   const formData = new FormData();
 
   for(var x = 0; x < acceptFiles.length; x++) {
     formData.append("files", acceptFiles[x]);
   }
 
-  fileStore.postFiles(formData).catch((err) => {
+  fileStore.postFiles(formData).then((response) => {
+      fileStore.addFilesToList(response);
+  }).catch((err) => {
       console.error(err);
     });
 }
 
-function handleClickDeleteFile(index) {
-  fileStore.deleteFileFromList(index);
-
-  // Call api request to delete file from storage
-}
-
-const showFilesList = () => {
-  console.log("files in list", fileStore.files);
+function handleClickDeleteFile(index, id) {
+  fileStore.deleteFile(id).then(() => {
+    fileStore.deleteFileFromList(index);
+  }).catch((err) => {
+    console.error(err);
+  });
 }
 
 </script>
@@ -43,8 +39,8 @@ const showFilesList = () => {
 <div>
   <div v-if="fileStore.files.length > 0" class="files">
     <div class="file-item" v-for="(file, index) in fileStore.files" :key="index">
-      <span>{{ file.name }}</span>
-      <span class="delete-file" @click="handleClickDeleteFile(index)">Delete</span>
+      <span>{{ file.file }}</span>
+      <span class="delete-file" @click="handleClickDeleteFile(index, file.id)">Delete</span>
     </div>
   </div>
   <div v-else class="dropzone" v-bind="getRootProps()">
