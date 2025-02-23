@@ -5,7 +5,7 @@ from .models import FileUpload
 class SingleFileUploadSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileUpload
-        fields = ['file', 'uploaded_at']
+        fields = ['id','file', 'uploaded_at']
 
 
 class FileUploadSerializer(serializers.Serializer):
