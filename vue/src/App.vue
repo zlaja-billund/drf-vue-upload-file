@@ -32,10 +32,6 @@ function handleClickDeleteFile(index, id) {
   });
 }
 
-const showFilesList = () => {
-  console.log("files in list", fileStore.files);
-}
-
 </script>
 
 <template>
