@@ -6,6 +6,7 @@ This project demonstrates a simple file upload using Django REST Framework API a
 ## Features
 - Upload file
 - Delete file + auto cleanup
+- AWS S3 + Boto3 
 
 ## Installation
 1. Clone the repository:
